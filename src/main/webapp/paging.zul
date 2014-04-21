@@ -1,0 +1,62 @@
+<div apply="org.zkoss.bind.BindComposer"
+     viewModel="@id('vm') @init('demo.view.paging.PagingViewController')">
+    <grid id="grid"
+          model="@load(vm.employeeRowStatuses) @template((each.editingStatus) ? 'editable' : 'noneditable')"
+          mold="paging" pageSize="5">
+        <columns>
+            <column hflex="2" label="Name" align="center" onClick="@command('sortByName')"/>
+            <column hflex="3" label="Surname" align="center" onClick="@command('sortBySurname')"/>
+            <column hflex="2" label="Salary" align="center" onClick="@command('sortBySalary')"/>
+            <column hflex="1" label="Operations" align="right"/>
+        </columns>
+        <template name="editable">
+            <row>
+                <textbox value="@load(each.employee.firstName) @save(each.employee.firstName, before='confirm')"/>
+                <textbox value="@load(each.employee.lastName) @save(each.employee.lastName, before='confirm')"/>
+                <intbox value="@load(each.employee.salary) @save(each.employee.salary, before='confirm')"/>
+                <div>
+                    <button
+                            label="Save"
+                            onClick="@command('confirm', employeeRowStatus=each)"/>
+                    <button
+                            label="Dismiss"
+                            onClick="@command('changeEditableStatus', employeeRowStatus=each)"/>
+                    <button
+                            label="Delete"
+                            onClick="@command('deleteItem', employeeRowStatus=each)"/>
+                </div>
+            </row>
+        </template>
+        <template name="noneditable">
+            <row>
+                <label value="@load(each.employee.firstName)"/>
+                <label value="@load(each.employee.lastName)"/>
+                <label value="@load(each.employee.salary)"/>
+                <div>
+                    <button
+                            label="Edit"
+                            onClick="@command('changeEditableStatus', employeeRowStatus=each)"/>
+                    <button
+                            label="Delete"
+                            onClick="@command('deleteItem', employeeRowStatus=each)"/>
+                </div>
+            </row>
+        </template>
+        <foot>
+            <footer>
+                <textbox id="firstName" width="100%"/>
+            </footer>
+            <footer>
+                <textbox id="lastName" width="100%"/>
+            </footer>
+            <footer>
+                <intbox id="salary" width="100%" />
+            </footer>
+            <footer>
+                <button id="addItemBtn" width="125px" label="Add new employee"
+                        onClick="@command('addNewEmployee')"/>
+            </footer>
+        </foot>
+    </grid>
+</div>
+

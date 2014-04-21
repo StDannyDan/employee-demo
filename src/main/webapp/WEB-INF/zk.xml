@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+	<!-- Paging -->
+	<!-- 7.0.0 -->
+    <library-property>
+        <name>org.zkoss.zkplus.cdi.beanManager.jndiName</name>
+        <value>java:comp/BeanManager</value>
+    </library-property>
+
+</zk>
